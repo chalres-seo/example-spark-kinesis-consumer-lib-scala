@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+  <timestamp key="day" datePattern="yyyy-MM-dd"/>
+  <timestamp key="time" datePattern="HH:mm:ss"/>
+
+  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+    <encoder>
+      <Pattern>%d{HH:mm} [%thread] %-5level %logger{36}:%line - %msg%n</Pattern>
+    </encoder>
+  </appender>
+
+  <appender name="file-debug" class="ch.qos.logback.core.FileAppender">
+    <file>logs/${day}/${time}/application-debug.log</file>
+    <append>true</append>
+    <immediateFlush>true</immediateFlush>
+    <encoder>
+      <Pattern>%d{HH:mm} [%thread] %-5level %logger{36}:%line - %msg%n</Pattern>
+    </encoder>
+  </appender>
+
+  <appender name="file-info" class="ch.qos.logback.core.FileAppender">
+    <file>logs/${day}/${time}/application-info.log</file>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+    <append>true</append>
+    <immediateFlush>true</immediateFlush>
+    <encoder>
+      <Pattern>%d{HH:mm} [%thread] %-5level %logger{36}:%line - %msg%n</Pattern>
+    </encoder>
+  </appender>
+
+  <appender name="spark-debug" class="ch.qos.logback.core.FileAppender">
+    <file>logs/${day}/${time}/spark-debug.log</file>
+    <append>true</append>
+    <immediateFlush>true</immediateFlush>
+    <encoder>
+      <Pattern>%d{HH:mm} [%thread] %-5level %logger{36}:%line - %msg%n</Pattern>
+    </encoder>
+  </appender>
+
+  <appender name="spark-info" class="ch.qos.logback.core.FileAppender">
+    <file>logs/${day}/${time}/spark-info.log</file>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+    <append>true</append>
+    <immediateFlush>true</immediateFlush>
+    <encoder>
+      <Pattern>%d{HH:mm} [%thread] %-5level %logger{36}:%line - %msg%n</Pattern>
+    </encoder>
+  </appender>
+
+  <appender name="hadoop-debug" class="ch.qos.logback.core.FileAppender">
+    <file>logs/${day}/${time}/hadoop-debug.log</file>
+    <append>true</append>
+    <immediateFlush>true</immediateFlush>
+    <encoder>
+      <Pattern>%d{HH:mm} [%thread] %-5level %logger{36}:%line - %msg%n</Pattern>
+    </encoder>
+  </appender>
+
+  <appender name="hadoop-info" class="ch.qos.logback.core.FileAppender">
+    <file>logs/${day}/${time}/hadoop-info.log</file>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+    <append>true</append>
+    <immediateFlush>true</immediateFlush>
+    <encoder>
+      <Pattern>%d{HH:mm} [%thread] %-5level %logger{36}:%line - %msg%n</Pattern>
+    </encoder>
+  </appender>
+
+  <appender name="spark-jetty-debug" class="ch.qos.logback.core.FileAppender">
+    <file>logs/${day}/${time}/spark-jetty-debug.log</file>
+    <append>true</append>
+    <immediateFlush>true</immediateFlush>
+    <encoder>
+      <Pattern>%d{HH:mm} [%thread] %-5level %logger{36}:%line - %msg%n</Pattern>
+    </encoder>
+  </appender>
+
+  <appender name="spark-jetty-info" class="ch.qos.logback.core.FileAppender">
+    <file>logs/${day}/${time}/spark-jetty-info.log</file>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+    <append>true</append>
+    <immediateFlush>true</immediateFlush>
+    <encoder>
+      <Pattern>%d{HH:mm} [%thread] %-5level %logger{36}:%line - %msg%n</Pattern>
+    </encoder>
+  </appender>
+  
+  <logger name="org.apache.hadoop" level="DEBUG" additivity="false">
+    <appender-ref ref="hadoop-debug" />
+    <appender-ref ref="hadoop-info" />
+  </logger>
+
+  <logger name="org.apache.spark" level="DEBUG" additivity="false">
+    <appender-ref ref="spark-debug" />
+    <appender-ref ref="spark-info" />
+  </logger>
+
+  <logger name="org.spark_project.jetty" level="DEBUG" additivity="false">
+    <appender-ref ref="spark-jetty-debug" />
+    <appender-ref ref="spark-jetty-info" />
+  </logger>
+
+  <root>
+    <level value="DEBUG"/>
+    <appender-ref ref="file-debug"/>
+    <appender-ref ref="file-info"/>
+    <appender-ref ref="console"/>
+  </root>
+
+</configuration>

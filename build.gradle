@@ -1,0 +1,68 @@
+group 'com.aws'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'scala'
+
+sourceCompatibility = 1.8
+
+def scalaVersion = '2.11.12'
+def typeSafeConfig = '1.3.3'
+def scalaLogging = '3.9.0'
+def logbackVersion = '1.2.3'
+
+def sparkVersion = '2.3.1'
+
+def hadoopVersion = '2.8.3'
+
+def junitVersion = '4.12'
+
+repositories {
+    mavenCentral()
+}
+
+
+// Common
+dependencies {
+    compile group: 'org.scala-lang', name: 'scala-library', version: scalaVersion
+    compile group: 'com.typesafe', name: 'config', version: typeSafeConfig
+    compile group: 'com.typesafe.scala-logging', name: 'scala-logging_2.11', version: scalaLogging
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
+}
+
+// Spark
+dependencies {
+    compile group: 'org.apache.spark', name: 'spark-core_2.11', version: sparkVersion
+    compile group: 'org.apache.spark', name: 'spark-sql_2.11', version: sparkVersion
+    compile group: 'org.apache.spark', name: 'spark-hive_2.11', version: sparkVersion
+    compile group: 'org.apache.spark', name: 'spark-streaming_2.11', version: sparkVersion
+    compile group: 'org.apache.spark', name: 'spark-streaming-kinesis-asl_2.11', version: sparkVersion
+}
+
+// Hadoop
+dependencies {
+    compile group: 'org.apache.hadoop', name: 'hadoop-common', version: hadoopVersion
+    compile group: 'org.apache.hadoop', name: 'hadoop-hdfs', version: hadoopVersion
+}
+
+// Test
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: junitVersion
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "com.apps.AppMain"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+task(main, dependsOn: 'classes', type: JavaExec) {
+    main = 'com.apps.AppMain'
+    classpath = sourceSets.main.runtimeClasspath
+    args '', ''
+    systemProperty '', ''
+}
