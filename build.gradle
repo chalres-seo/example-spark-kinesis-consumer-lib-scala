@@ -1,4 +1,4 @@
-group 'com.aws'
+group 'com.example'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
@@ -52,7 +52,7 @@ dependencies {
 
 jar {
     manifest {
-        attributes "Main-Class": "com.apps.AppMain"
+        attributes "Main-Class": "com.example.apps.AppMain"
     }
 
     from {
@@ -61,7 +61,7 @@ jar {
 }
 
 task(main, dependsOn: 'classes', type: JavaExec) {
-    main = 'com.apps.AppMain'
+    main = 'com.example.apps.AppMain'
     classpath = sourceSets.main.runtimeClasspath
     args '', ''
     systemProperty '', ''

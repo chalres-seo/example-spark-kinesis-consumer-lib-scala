@@ -1,11 +1,11 @@
-package com.aws.credentials
+package com.example.aws.credentials
 
 import java.util.concurrent.ConcurrentHashMap
 
 import com.amazonaws.auth.profile.ProfileCredentialsProvider
 import com.amazonaws.auth.{AWSCredentialsProvider, DefaultAWSCredentialsProviderChain}
 import com.typesafe.scalalogging.LazyLogging
-import com.utils.AppConfig
+import com.example.utils.AppConfig
 
 import scala.collection.JavaConverters._
 import scala.collection.concurrent

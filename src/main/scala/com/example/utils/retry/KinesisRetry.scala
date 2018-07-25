@@ -1,9 +1,9 @@
-package com.utils.retry
+package com.example.utils.retry
 
 import com.amazonaws.services.kinesis.clientlibrary.exceptions.{InvalidStateException, ShutdownException, ThrottlingException}
 import com.amazonaws.services.kinesis.model._
 import com.typesafe.scalalogging.LazyLogging
-import com.utils.AppConfig
+import com.example.utils.AppConfig
 
 import scala.annotation.tailrec
 import scala.util.{Failure, Success, Try}

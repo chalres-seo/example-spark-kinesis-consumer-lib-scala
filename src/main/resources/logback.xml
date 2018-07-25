@@ -3,7 +3,13 @@
   <timestamp key="day" datePattern="yyyy-MM-dd"/>
   <timestamp key="time" datePattern="HH:mm:ss"/>
 
-  <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+  <appender name="console-debug" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <Pattern>%d{HH:mm} [%thread] %-5level %logger{36}:%line - %msg%n</Pattern>
+    </encoder>
+  </appender>
+
+  <appender name="console-info" class="ch.qos.logback.core.ConsoleAppender">
     <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
       <level>INFO</level>
     </filter>
@@ -111,11 +117,15 @@
     <appender-ref ref="spark-jetty-info" />
   </logger>
 
+  <logger name="com.example" level="DEBUG" additivity="false">
+    <appender-ref ref="console-debug"/>
+  </logger>
+
   <root>
     <level value="DEBUG"/>
     <appender-ref ref="file-debug"/>
     <appender-ref ref="file-info"/>
-    <appender-ref ref="console"/>
+    <appender-ref ref="console-info"/>
   </root>
 
 </configuration>

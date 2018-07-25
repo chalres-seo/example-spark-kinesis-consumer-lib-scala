@@ -1,4 +1,4 @@
-package com.utils
+package com.example.utils
 
 import java.io.{File, FileInputStream, InputStream}
 import java.nio.file.{Files, Paths}
@@ -29,10 +29,11 @@ object AppConfig {
   // spark config
   val sparkMaster: String = conf.getString("spark.master")
   val sparkConfig: mutable.Map[String, String] = sparkProps.asScala
+  val sparkPalleleLevel: Int = Runtime.getRuntime.availableProcessors() * 2
 
   // spark kinesis consumer conf
   val consumeKinesisStream: String = conf.getString("spark.kinesis.stream")
   val consumeKinesisEndpoint: String = conf.getString("spark.kinesis.endpoint")
   val consumeBatchIntervalSec: Int = conf.getInt("spark.batchIntervalSec")
-  val consumeAppName = conf.getString("spark.appName")
+  val consumeAppName: String = conf.getString("spark.appName")
 }

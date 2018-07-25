@@ -1,11 +1,11 @@
-package com.aws.kinesis
+package com.example.aws.kinesis
 
 import com.amazonaws.services.kinesis.model._
 import com.amazonaws.services.kinesis.{AmazonKinesisAsync, AmazonKinesisAsyncClientBuilder}
-import com.aws.credentials.CredentialsFactory
+import com.example.aws.credentials.CredentialsFactory
 import com.typesafe.scalalogging.LazyLogging
-import com.utils.AppConfig
-import com.utils.retry.KinesisRetry
+import com.example.utils.AppConfig
+import com.example.utils.retry.KinesisRetry
 
 import scala.annotation.tailrec
 import scala.collection.concurrent

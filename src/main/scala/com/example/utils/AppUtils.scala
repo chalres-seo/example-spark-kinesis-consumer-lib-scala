@@ -1,10 +1,10 @@
-package com.utils
+package com.example.utils
 
 import java.io.IOException
 import java.nio.file.{Files, Paths}
 
 import com.typesafe.scalalogging.LazyLogging
-import com.utils.retry.Retry
+import com.example.utils.retry.Retry
 
 import scala.util.{Failure, Success, Try}
 

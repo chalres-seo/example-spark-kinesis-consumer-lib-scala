@@ -1,8 +1,8 @@
-package com.spark
+package com.example.spark
 
-import com.aws.credentials.CredentialsFactory
+import com.example.aws.credentials.CredentialsFactory
 import com.typesafe.scalalogging.LazyLogging
-import com.utils.AppConfig
+import com.example.utils.AppConfig
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
 import scala.collection.JavaConverters._
