@@ -2,7 +2,7 @@ package com.example.apps
 
 import java.nio.file.StandardOpenOption
 
-import com.example.spark.SparkSessionCreator
+import com.example.spark.Spark
 import com.example.spark.consumer.SparkKinesisConsumer
 import com.example.spark.consumer.handler.SparkKinesisConsumerHandler
 import com.typesafe.scalalogging.LazyLogging
@@ -13,7 +13,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 object AppMain extends LazyLogging {
   def main(args: Array[String]): Unit = {
-    val spark = SparkSessionCreator.getSparkSession
+    val spark = Spark.getSparkSession
 
     logger.debug("start kinesis consumer spark-streaming app.")
     logger.debug(s"spark version: ${spark.version}")

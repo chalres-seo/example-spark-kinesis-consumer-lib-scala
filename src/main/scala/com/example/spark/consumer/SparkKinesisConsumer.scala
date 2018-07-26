@@ -1,7 +1,7 @@
 package com.example.spark.consumer
 
 import com.example.aws.kinesis.KinesisSdkClient
-import com.example.spark.SparkSessionCreator
+import com.example.spark.Spark
 import com.example.spark.consumer.handler.SparkKinesisConsumerHandler
 import com.typesafe.scalalogging.LazyLogging
 import com.example.utils.AppConfig
@@ -25,7 +25,7 @@ object SparkKinesisConsumer extends LazyLogging {
 
   private val parallelLevel = AppConfig.sparkPalleleLevel
 
-  private val spark: SparkSession = SparkSessionCreator.getSparkSession(AppConfig.consumeAppName)
+  private val spark: SparkSession = Spark.getSparkSession
 
   def consume(handler: SparkKinesisConsumerHandler.RDDHandler[String]): Unit = {
     logger.debug("spark kinesis consumer start.")
@@ -60,7 +60,7 @@ object SparkKinesisConsumer extends LazyLogging {
           .checkpointInterval(consumeBatchIntervalSec)
           .build()
       }
-    }.map(new String(_))
+    }.repartition(parallelLevel).map(new String(_))
 
     recordsDStream.print
     recordsDStream.foreachRDD(rdd => {
@@ -68,14 +68,7 @@ object SparkKinesisConsumer extends LazyLogging {
 
       if (rdd.isEmpty()) {
         logger.debug("rdd is empty. go to next loop")
-      } else {
-        if (rdd.getNumPartitions < parallelLevel) {
-          logger.debug("stream rdd repartition.")
-          this.processRDD(rdd.repartition(parallelLevel))(handler)
-        }
-
-        this.processRDD(rdd)(handler)
-      }
+      } else this.processRDD(rdd)(handler)
     })
 
     logger.debug("start spark stream,")
