@@ -10,18 +10,29 @@ object Spark extends LazyLogging {
   private val awsCredentitlas = CredentialsFactory.getCredentialsProvider.getCredentials
 
   private val sparkConf = new SparkConf()
-    .setMaster(AppConfig.sparkMaster)
     .set("spark.hadoop.fs.s3a.access.key", awsCredentitlas.getAWSAccessKeyId)
     .set("spark.hadoop.fs.s3a.secret.key", awsCredentitlas.getAWSSecretKey)
     .setAll(AppConfig.sparkConfig)
 
   private val appName = AppConfig.consumeAppName
 
+  private val sparkSessionBuilder = SparkSession.builder()
+    .appName(appName)
+    .config(sparkConf)
+    .enableHiveSupport()
+
   def getSparkSession: SparkSession = {
-    SparkSession.builder()
-      .appName(appName)
-      .config(sparkConf)
-      .enableHiveSupport()
+    logger.debug("create or get spark session.")
+
+    sparkSessionBuilder
+      .getOrCreate()
+  }
+
+  def getSparkSession(master: String): SparkSession = {
+    logger.debug(s"create or get spark session. master: $master" )
+
+    sparkSessionBuilder
+      .master(master)
       .getOrCreate()
   }
 }

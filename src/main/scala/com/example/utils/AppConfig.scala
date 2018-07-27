@@ -27,7 +27,6 @@ object AppConfig {
   val awsEndpoint: String = conf.getString("aws.endpoint")
 
   // spark config
-  val sparkMaster: String = conf.getString("spark.master")
   val sparkConfig: mutable.Map[String, String] = sparkProps.asScala
   val sparkPalleleLevel: Int = Runtime.getRuntime.availableProcessors() * 2
 

@@ -44,6 +44,7 @@ out/
 tmp/*
 example/*
 logs/*
+metastore_db
 
 # Avoid ignoring
 !example/example_record.txt
